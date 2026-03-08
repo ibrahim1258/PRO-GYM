@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRO GYM</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#0a0a0a;
+color:white;
+direction:rtl;
+}
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 60px;
+background:black;
+border-bottom:2px solid red;
+}
+
+.logo{
+font-size:30px;
+font-weight:bold;
+color:red;
+}
+
+nav a{
+color:white;
+margin:0 15px;
+text-decoration:none;
+font-size:18px;
+}
+
+nav a:hover{
+color:red;
+}
+
+.hero{
+height:90vh;
+background:url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48") center/cover;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+}
+
+.hero h1{
+font-size:55px;
+background:rgba(0,0,0,0.6);
+padding:25px 40px;
+border-radius:10px;
+}
+
+section{
+padding:70px 15%;
+}
+
+h2{
+color:red;
+margin-bottom:25px;
+font-size:32px;
+}
+
+.gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.gallery img{
+width:100%;
+border-radius:10px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+background:#111;
+}
+
+td,th{
+border:1px solid #333;
+padding:12px;
+text-align:center;
+}
+
+.card{
+background:#111;
+padding:25px;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+form{
+background:#111;
+padding:25px;
+border-radius:10px;
+}
+
+input,select{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:none;
+border-radius:6px;
+}
+
+button{
+background:red;
+color:white;
+padding:12px;
+border:none;
+width:100%;
+font-size:18px;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#ff2a2a;
+}
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+left:20px;
+background:#25D366;
+color:white;
+padding:15px;
+border-radius:50%;
+font-size:22px;
+text-decoration:none;
+}
+
+footer{
+background:black;
+text-align:center;
+padding:30px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">PRO GYM</div>
+
+<nav>
+<a href="#home">الرئيسية</a>
+<a href="#location">المكان</a>
+<a href="#schedule">المواعيد</a>
+<a href="#prices">الاشتراكات</a>
+<a href="#booking">الحجز</a>
+</nav>
+
+</header>
+
+<div class="hero" id="home">
+<h1>ابدأ رحلتك الرياضية مع PRO GYM</h1>
+</div>
+
+<section>
+
+<h2>🏋️ صور الجيم</h2>
+
+<div class="gallery">
+
+<img src="https://images.unsplash.com/photo-1558611848-73f7eb4001a1">
+
+<img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f">
+
+<img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438">
+
+</div>
+
+</section>
+
+<section id="location">
+
+<h2>📍 المكان</h2>
+
+<div class="card">
+
+أبو حمص – أول شارع السخاوي  
+<br><br>
+📞 01205150400
+
+</div>
+
+</section>
+
+<section id="prices">
+
+<h2>💰 الاشتراكات</h2>
+
+<table>
+
+<tr>
+<th>الاشتراك</th>
+<th>رجال</th>
+<th>سيدات</th>
+</tr>
+
+<tr>
+<td>شهر</td>
+<td>500</td>
+<td>450</td>
+</tr>
+
+<tr>
+<td>3 شهور</td>
+<td>1300</td>
+<td>1100</td>
+</tr>
+
+<tr>
+<td>6 شهور</td>
+<td>2400</td>
+<td>2000</td>
+</tr>
+
+</table>
+
+</section>
+
+<section id="schedule">
+
+<h2>🕒 مواعيد الرجال</h2>
+
+<div class="card">
+
+السبت: 2 م – 2 ص  
+<br>الأحد: 8:30 ص – 3 م / 7:15 م – 2 ص  
+<br>الاثنين: 2 م – 2 ص  
+<br>الثلاثاء: 8:30 ص – 3 م / 7:15 م – 2 ص  
+<br>الأربعاء: 2 م – 2 ص  
+<br>الخميس: 8:30 ص – 2 م / 7:15 م – 2 ص  
+<br>الجمعة: 8 م – 12 ص
+
+</div>
+
+<h2>👩 مواعيد السيدات</h2>
+
+<div class="card">
+
+السبت: 10 ص – 2 م  
+<br>الأحد: 2 م – 7:15 م  
+<br>الاثنين: 10 ص – 2 م  
+<br>الثلاثاء: 2 م – 7:15 م  
+<br>الأربعاء: 10 ص – 2 م  
+<br>الخميس: 2 م – 7:15 م  
+<br>الجمعة: 2 م – 8 م
+
+</div>
+
+</section>
+
+<section id="booking">
+
+<h2>📅 حجز الاشتراك</h2>
+
+<form onsubmit="sendToWhatsapp(); return false;">
+
+<input type="text" id="name" placeholder="الاسم" required>
+
+<input type="tel" id="phone" placeholder="رقم الهاتف" required>
+
+<select id="gender">
+<option value="رجال">رجال</option>
+<option value="سيدات">سيدات</option>
+</select>
+
+<select id="plan">
+<option value="شهر">اشتراك شهر</option>
+<option value="3 شهور">عرض 3 شهور</option>
+<option value="6 شهور">عرض 6 شهور</option>
+</select>
+
+<select id="payment">
+<option value="فودافون كاش">فودافون كاش</option>
+<option value="انستاباي">انستاباي</option>
+<option value="دفع في الجيم">كاش في الجيم</option>
+</select>
+
+<button type="submit">احجز الآن</button>
+
+</form>
+
+</section>
+
+<footer>
+
+PRO GYM © 2026
+
+</footer>
+
+<a class="whatsapp" href="https://wa.me/201205150400">💬</a>
+
+<script>
+
+function sendToWhatsapp(){
+
+var name=document.getElementById("name").value;
+var phone=document.getElementById("phone").value;
+var gender=document.getElementById("gender").value;
+var plan=document.getElementById("plan").value;
+var payment=document.getElementById("payment").value;
+
+var message=
+"حجز جديد في PRO GYM%0A"+
+"الاسم: "+name+"%0A"+
+"رقم الهاتف: "+phone+"%0A"+
+"النوع: "+gender+"%0A"+
+"الاشتراك: "+plan+"%0A"+
+"طريقة الدفع: "+payment;
+
+var url="https://wa.me/201205150400?text="+message;
+
+window.open(url);
+
+}
+
+</script>
+
+</body>
+</html>
