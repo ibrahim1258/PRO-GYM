@@ -531,6 +531,8 @@ footer{
 <script>
 const phoneTarget = '201205150400';
 const galleryOrder = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45];
+const galleryExtensions = ['jpg', 'jpeg', 'png', 'webp', 'avif'];
+const customGalleryFiles = [];
 const genderSlots = {
   'رجال': [
     'السبت | 2 م - 2 ص',
@@ -567,14 +569,43 @@ const mainNav = document.getElementById('mainNav');
 function renderGallery(){
   galleryGrid.innerHTML = '';
 
-  galleryOrder.forEach(function(num){
-    const n = String(num).padStart(2, '0');
+  function createGalleryImage(source){
     const img = document.createElement('img');
-    img.src = 'gallery/' + n + '.jpg';
-    img.alt = 'PRO GYM ' + n;
+    const hasExt = source.indexOf('.') > -1;
+    const candidates = hasExt
+      ? ['gallery/' + source]
+      : galleryExtensions.map(function(ext){ return 'gallery/' + source + '.' + ext; });
+    let i = 0;
+
+    function tryNextSource(){
+      if (i >= candidates.length){
+        img.remove();
+        return;
+      }
+      img.src = candidates[i++];
+    }
+
+    img.alt = 'PRO GYM ' + source;
     img.loading = 'lazy';
-    img.onerror = function(){ this.remove(); };
+    img.onerror = tryNextSource;
+    tryNextSource();
     galleryGrid.appendChild(img);
+  }
+
+  if (customGalleryFiles.length){
+    customGalleryFiles.forEach(function(fileName){
+      createGalleryImage(fileName);
+    });
+    return;
+  }
+
+  function pad2(num){
+    return num < 10 ? '0' + num : String(num);
+  }
+
+  galleryOrder.forEach(function(num){
+    const n = pad2(num);
+    createGalleryImage(n);
   });
 }
 
@@ -625,20 +656,25 @@ function updateScrollFx(){
   }
 }
 
-const observer = new IntersectionObserver(function(entries){
-  entries.forEach(function(entry){
-    if (entry.isIntersecting){
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
-  });
-},{threshold:0.2});
-
-document.querySelectorAll('.reveal').forEach(function(el){
-  observer.observe(el);
-});
-
 renderGallery();
+if ('IntersectionObserver' in window){
+  const observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting){
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.2});
+
+  document.querySelectorAll('.reveal').forEach(function(el){
+    observer.observe(el);
+  });
+} else {
+  document.querySelectorAll('.reveal').forEach(function(el){
+    el.classList.add('visible');
+  });
+}
 dateEl.min = new Date().toISOString().split('T')[0];
 populateSlots(genderEl.value);
 genderEl.addEventListener('change', function(){
@@ -699,6 +735,10 @@ document.getElementById('bookingForm').addEventListener('submit', function(event
 </script>
 </body>
 </html>
+
+
+
+
 
 
 
