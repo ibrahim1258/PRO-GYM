@@ -290,7 +290,7 @@ footer{
 .float-top{bottom:78px;background:linear-gradient(110deg,var(--accent),var(--accent-2));font-size:1.2rem;opacity:0;pointer-events:none;transition:.2s ease}
 .float-top.show{opacity:1;pointer-events:auto}
 
-.reveal{opacity:0;transform:translateY(20px);transition:.45s ease}
+.reveal{opacity:1;transform:none;transition:.45s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 @media (max-width:980px){
@@ -396,7 +396,53 @@ footer{
 </main>
 
 <section class="container reveal" id="gallery">
-  <h2 class="section-title">صور <span>الجيم</span></h2>  <div class="gallery" id="galleryGrid"></div>
+  <h2 class="section-title">صور <span>الجيم</span></h2>  <div class="gallery" id="galleryGrid">
+    <img src="gallery/01.jpg" alt="PRO GYM 01" loading="lazy" onerror="this.remove();">
+    <img src="gallery/02.jpg" alt="PRO GYM 02" loading="lazy" onerror="this.remove();">
+    <img src="gallery/03.jpg" alt="PRO GYM 03" loading="lazy" onerror="this.remove();">
+    <img src="gallery/04.jpg" alt="PRO GYM 04" loading="lazy" onerror="this.remove();">
+    <img src="gallery/05.jpg" alt="PRO GYM 05" loading="lazy" onerror="this.remove();">
+    <img src="gallery/06.jpg" alt="PRO GYM 06" loading="lazy" onerror="this.remove();">
+    <img src="gallery/07.jpg" alt="PRO GYM 07" loading="lazy" onerror="this.remove();">
+    <img src="gallery/08.jpg" alt="PRO GYM 08" loading="lazy" onerror="this.remove();">
+    <img src="gallery/09.jpg" alt="PRO GYM 09" loading="lazy" onerror="this.remove();">
+    <img src="gallery/10.jpg" alt="PRO GYM 10" loading="lazy" onerror="this.remove();">
+    <img src="gallery/11.jpg" alt="PRO GYM 11" loading="lazy" onerror="this.remove();">
+    <img src="gallery/12.jpg" alt="PRO GYM 12" loading="lazy" onerror="this.remove();">
+    <img src="gallery/13.jpg" alt="PRO GYM 13" loading="lazy" onerror="this.remove();">
+    <img src="gallery/14.jpg" alt="PRO GYM 14" loading="lazy" onerror="this.remove();">
+    <img src="gallery/15.jpg" alt="PRO GYM 15" loading="lazy" onerror="this.remove();">
+    <img src="gallery/16.jpg" alt="PRO GYM 16" loading="lazy" onerror="this.remove();">
+    <img src="gallery/17.jpg" alt="PRO GYM 17" loading="lazy" onerror="this.remove();">
+    <img src="gallery/18.jpg" alt="PRO GYM 18" loading="lazy" onerror="this.remove();">
+    <img src="gallery/19.jpg" alt="PRO GYM 19" loading="lazy" onerror="this.remove();">
+    <img src="gallery/20.jpg" alt="PRO GYM 20" loading="lazy" onerror="this.remove();">
+    <img src="gallery/21.jpg" alt="PRO GYM 21" loading="lazy" onerror="this.remove();">
+    <img src="gallery/22.jpg" alt="PRO GYM 22" loading="lazy" onerror="this.remove();">
+    <img src="gallery/23.jpg" alt="PRO GYM 23" loading="lazy" onerror="this.remove();">
+    <img src="gallery/24.jpg" alt="PRO GYM 24" loading="lazy" onerror="this.remove();">
+    <img src="gallery/25.jpg" alt="PRO GYM 25" loading="lazy" onerror="this.remove();">
+    <img src="gallery/26.jpg" alt="PRO GYM 26" loading="lazy" onerror="this.remove();">
+    <img src="gallery/27.jpg" alt="PRO GYM 27" loading="lazy" onerror="this.remove();">
+    <img src="gallery/28.jpg" alt="PRO GYM 28" loading="lazy" onerror="this.remove();">
+    <img src="gallery/29.jpg" alt="PRO GYM 29" loading="lazy" onerror="this.remove();">
+    <img src="gallery/30.jpg" alt="PRO GYM 30" loading="lazy" onerror="this.remove();">
+    <img src="gallery/31.jpg" alt="PRO GYM 31" loading="lazy" onerror="this.remove();">
+    <img src="gallery/32.jpg" alt="PRO GYM 32" loading="lazy" onerror="this.remove();">
+    <img src="gallery/33.jpg" alt="PRO GYM 33" loading="lazy" onerror="this.remove();">
+    <img src="gallery/34.jpg" alt="PRO GYM 34" loading="lazy" onerror="this.remove();">
+    <img src="gallery/35.jpg" alt="PRO GYM 35" loading="lazy" onerror="this.remove();">
+    <img src="gallery/36.jpg" alt="PRO GYM 36" loading="lazy" onerror="this.remove();">
+    <img src="gallery/37.jpg" alt="PRO GYM 37" loading="lazy" onerror="this.remove();">
+    <img src="gallery/38.jpg" alt="PRO GYM 38" loading="lazy" onerror="this.remove();">
+    <img src="gallery/39.jpg" alt="PRO GYM 39" loading="lazy" onerror="this.remove();">
+    <img src="gallery/40.jpg" alt="PRO GYM 40" loading="lazy" onerror="this.remove();">
+    <img src="gallery/41.jpg" alt="PRO GYM 41" loading="lazy" onerror="this.remove();">
+    <img src="gallery/42.jpg" alt="PRO GYM 42" loading="lazy" onerror="this.remove();">
+    <img src="gallery/43.jpg" alt="PRO GYM 43" loading="lazy" onerror="this.remove();">
+    <img src="gallery/44.jpg" alt="PRO GYM 44" loading="lazy" onerror="this.remove();">
+    <img src="gallery/45.jpg" alt="PRO GYM 45" loading="lazy" onerror="this.remove();">
+  </div>
 </section>
 
 <section class="container reveal">
@@ -567,7 +613,9 @@ const menuToggle = document.getElementById('menuToggle');
 const mainNav = document.getElementById('mainNav');
 
 function renderGallery(){
-  galleryGrid.innerHTML = '';
+  if (galleryGrid.children.length){
+    return;
+  }
 
   function createGalleryImage(source){
     const img = document.createElement('img');
@@ -735,6 +783,9 @@ document.getElementById('bookingForm').addEventListener('submit', function(event
 </script>
 </body>
 </html>
+
+
+
 
 
 
