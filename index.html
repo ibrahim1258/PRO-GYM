@@ -200,6 +200,9 @@ section{padding:34px 0}
   transition:.3s ease;
 }
 .gallery img:hover{transform:translateY(-5px) scale(1.01);box-shadow:var(--glow)}
+.gallery img.is-hidden{display:none}
+.gallery-more-wrap{display:flex;justify-content:center;margin-top:12px}
+.gallery-more-btn{min-width:170px}
 
 .why{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 .box,.price-card,.schedule-card,.booking-side,form{
@@ -443,6 +446,9 @@ footer{
     <img src="gallery/44.jpg" alt="PRO GYM 44" loading="lazy" onerror="this.remove();">
     <img src="gallery/45.jpg" alt="PRO GYM 45" loading="lazy" onerror="this.remove();">
   </div>
+  <div class="gallery-more-wrap">
+    <button type="button" id="galleryMoreBtn" class="btn btn-secondary gallery-more-btn">عرض المزيد من الصور</button>
+  </div>
 </section>
 
 <section class="container reveal">
@@ -611,6 +617,8 @@ const progressBar = document.getElementById('progressBar');
 const toTop = document.getElementById('toTop');
 const menuToggle = document.getElementById('menuToggle');
 const mainNav = document.getElementById('mainNav');
+const galleryMoreBtn = document.getElementById('galleryMoreBtn');
+const initialGalleryCount = 12;
 
 function renderGallery(){
   if (galleryGrid.children.length){
@@ -657,6 +665,33 @@ function renderGallery(){
   });
 }
 
+
+function setupGalleryPreview(){
+  const images = Array.from(galleryGrid.querySelectorAll('img'));
+  if (images.length <= initialGalleryCount){
+    if (galleryMoreBtn){
+      galleryMoreBtn.style.display = 'none';
+    }
+    return;
+  }
+
+  images.forEach(function(img, index){
+    if (index >= initialGalleryCount){
+      img.classList.add('is-hidden');
+    }
+  });
+
+  if (!galleryMoreBtn){
+    return;
+  }
+
+  galleryMoreBtn.addEventListener('click', function(){
+    images.forEach(function(img){
+      img.classList.remove('is-hidden');
+    });
+    galleryMoreBtn.style.display = 'none';
+  });
+}
 function populateSlots(gender){
   const slots = genderSlots[gender] || [];
   slotEl.innerHTML = '';
@@ -705,6 +740,7 @@ function updateScrollFx(){
 }
 
 renderGallery();
+setupGalleryPreview();
 if ('IntersectionObserver' in window){
   const observer = new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
@@ -783,6 +819,9 @@ document.getElementById('bookingForm').addEventListener('submit', function(event
 </script>
 </body>
 </html>
+
+
+
 
 
 
