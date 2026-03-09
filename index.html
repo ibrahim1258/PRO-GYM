@@ -139,7 +139,7 @@ nav a:hover{background:rgba(255,255,255,.06);border-color:var(--line);transform:
   inset:0;
   background:
     linear-gradient(0deg,rgba(0,0,0,.72),rgba(0,0,0,.34)),
-    url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1600&q=90') center/cover;
+    url('gallery/01.jpg') center/cover;
 }
 .hero-content{position:relative;padding:38px 32px;min-height:435px;display:flex;flex-direction:column;justify-content:flex-end}
 .tag{
@@ -348,7 +348,7 @@ footer{
   <div class="container topbar">
     <div class="topbar-head">
       <div class="logo">
-        <img src="logo-progym.jpg" alt="PRO GYM Logo" loading="eager" onerror="this.style.display='none'">
+        <img src="logo-progym.jpg" alt="PRO GYM Logo" loading="eager" onerror="this.onerror=null;this.src='gallery/01.jpg';">
         <div class="logo-text">
           <strong>PRO GYM</strong>
           <small>BE PROFESSIONAL</small>
@@ -530,7 +530,7 @@ footer{
 
 <script>
 const phoneTarget = '201205150400';
-const galleryOrder = [35,36,48,1,2,10,11,12,14,15,16,17,18,4,5,6,7,9,13,20,3,8,19,21,22,23,24,38,39,25,26,27,28,29,30,31,32,33,34,37,40,41,42,43,44,45,46,47];
+const galleryOrder = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45];
 const genderSlots = {
   'رجال': [
     'السبت | 2 م - 2 ص',
@@ -699,5 +699,6 @@ document.getElementById('bookingForm').addEventListener('submit', function(event
 </script>
 </body>
 </html>
+
 
 
