@@ -98,6 +98,19 @@ header{
 .logo-text small{display:block;font-size:.68rem;color:var(--muted);margin-top:2px}
 
 nav{display:flex;gap:8px;flex-wrap:wrap}
+.menu-toggle{
+  display:none;
+  width:42px;
+  height:42px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:rgba(255,255,255,.04);
+  color:var(--text);
+  font-size:1.25rem;
+  line-height:1;
+  cursor:pointer;
+}
+.menu-toggle:hover{background:rgba(255,255,255,.1)}
 nav a{
   color:var(--text);
   text-decoration:none;
@@ -285,9 +298,39 @@ footer{
   .pricing,.why,.schedule{grid-template-columns:1fr 1fr}
 }
 @media (max-width:680px){
-  .topbar{flex-direction:column;align-items:flex-start}
+  .topbar{flex-direction:column;align-items:stretch;gap:10px}
+  .topbar-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .logo{
+    width:100%;
+    justify-content:flex-start;
+  }
+  .menu-toggle{display:inline-grid;place-items:center}
   .logo img{width:48px;height:48px}
-  nav a{font-size:.85rem;padding:8px 11px}
+  nav{
+    width:100%;
+    display:none;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+    margin-top:2px;
+  }
+  nav.open{display:grid}
+  nav a{
+    font-size:.9rem;
+    padding:9px 10px;
+    text-align:center;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.03);
+  }
+  nav a:last-child{
+    grid-column:1/-1;
+    width:min(220px,100%);
+    justify-self:center;
+  }
   .hero-content{min-height:355px;padding:26px 20px}
   .gallery,.pricing,.why,.schedule,.input-grid{grid-template-columns:1fr}
   .float-whatsapp{left:12px;bottom:12px}
@@ -300,14 +343,17 @@ footer{
 
 <header>
   <div class="container topbar">
-    <div class="logo">
-      <img src="logo-progym.jpg" alt="PRO GYM Logo" loading="eager" onerror="this.style.display='none'">
-      <div class="logo-text">
-        <strong>PRO GYM</strong>
-        <small>BE PROFESSIONAL</small>
+    <div class="topbar-head">
+      <div class="logo">
+        <img src="logo-progym.jpg" alt="PRO GYM Logo" loading="eager" onerror="this.style.display='none'">
+        <div class="logo-text">
+          <strong>PRO GYM</strong>
+          <small>BE PROFESSIONAL</small>
+        </div>
       </div>
+      <button type="button" class="menu-toggle" id="menuToggle" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mainNav">☰</button>
     </div>
-    <nav>
+    <nav id="mainNav">
       <a href="#home">الرئيسية</a>
       <a href="#gallery">صور الجيم</a>
       <a href="#prices">الاشتراكات</a>
@@ -512,6 +558,8 @@ const dateEl = document.getElementById('bookingDate');
 const galleryGrid = document.getElementById('galleryGrid');
 const progressBar = document.getElementById('progressBar');
 const toTop = document.getElementById('toTop');
+const menuToggle = document.getElementById('menuToggle');
+const mainNav = document.getElementById('mainNav');
 
 function renderGallery(){
   galleryGrid.innerHTML = '';
@@ -597,6 +645,32 @@ genderEl.addEventListener('change', function(){
 window.addEventListener('scroll', updateScrollFx);
 updateScrollFx();
 
+if (menuToggle && mainNav){
+  menuToggle.addEventListener('click', function(){
+    const opened = mainNav.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', opened ? 'true' : 'false');
+    menuToggle.textContent = opened ? '✕' : '☰';
+  });
+
+  mainNav.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', function(){
+      if (window.innerWidth <= 680){
+        mainNav.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.textContent = '☰';
+      }
+    });
+  });
+
+  window.addEventListener('resize', function(){
+    if (window.innerWidth > 680){
+      mainNav.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.textContent = '☰';
+    }
+  });
+}
+
 document.getElementById('bookingForm').addEventListener('submit', function(event){
   event.preventDefault();
 
@@ -622,7 +696,3 @@ document.getElementById('bookingForm').addEventListener('submit', function(event
 </script>
 </body>
 </html>
-
-
-
-
