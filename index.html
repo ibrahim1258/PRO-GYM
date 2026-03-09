@@ -3,428 +3,485 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PRO GYM | الحجز الرسمي</title>
+<title>PRO GYM | Elite Booking</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
 
 :root{
-  --bg:#050505;
-  --bg-soft:#0f0f0f;
-  --surface:#141414;
-  --surface-2:#1a1a1a;
-  --text:#f5f7fa;
-  --muted:#b6bcc8;
-  --accent:#ff2f2f;
-  --accent-2:#ff6a00;
-  --line:rgba(255,255,255,.08);
-  --ok:#25D366;
-  --radius:18px;
-  --shadow:0 12px 40px rgba(0,0,0,.45);
+  --bg:#060607;
+  --bg-2:#0f1115;
+  --surface:#14161c;
+  --surface-2:#1a1d25;
+  --text:#f3f5fa;
+  --muted:#a6afbf;
+  --accent:#ff2d2d;
+  --accent-2:#ff7a18;
+  --line:rgba(255,255,255,.1);
+  --glow:0 18px 44px rgba(255,45,45,.22);
+  --radius:20px;
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
   font-family:'Cairo',sans-serif;
   color:var(--text);
-  background:
-    radial-gradient(circle at 85% 10%,rgba(255,47,47,.2),transparent 38%),
-    radial-gradient(circle at 10% 90%,rgba(255,106,0,.16),transparent 32%),
-    var(--bg);
-  min-height:100vh;
+  background:var(--bg);
+  overflow-x:hidden;
 }
 
-.container{width:min(1120px,92%);margin-inline:auto}
+body::before,
+body::after{
+  content:'';
+  position:fixed;
+  inset:auto;
+  width:540px;
+  height:540px;
+  border-radius:50%;
+  filter:blur(60px);
+  pointer-events:none;
+  z-index:-1;
+}
+body::before{
+  top:-160px;
+  right:-120px;
+  background:radial-gradient(circle,rgba(255,45,45,.28),transparent 60%);
+  animation:floatA 9s ease-in-out infinite;
+}
+body::after{
+  bottom:-220px;
+  left:-140px;
+  background:radial-gradient(circle,rgba(255,122,24,.18),transparent 62%);
+  animation:floatB 11s ease-in-out infinite;
+}
+
+@keyframes floatA{50%{transform:translate(-26px,24px)}}
+@keyframes floatB{50%{transform:translate(30px,-22px)}}
+
+.progress-bar{
+  position:fixed;
+  top:0;
+  right:0;
+  height:4px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  width:0;
+  z-index:90;
+}
+
+.container{width:min(1150px,92%);margin-inline:auto}
 
 header{
-  position:sticky;top:0;z-index:40;
-  backdrop-filter:blur(10px);
-  background:rgba(5,5,5,.82);
+  position:sticky;
+  top:0;
+  z-index:70;
+  background:rgba(8,9,11,.72);
   border-bottom:1px solid var(--line);
+  backdrop-filter:blur(10px);
 }
-
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 0}
-.logo{
-  display:flex;align-items:center;gap:12px;
-  font-size:1.45rem;font-weight:900;letter-spacing:.6px
-}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 0}
+.logo{display:flex;align-items:center;gap:12px}
 .logo img{
-  width:52px;height:52px;border-radius:12px;
-  object-fit:cover;border:1px solid var(--line);
-  box-shadow:0 6px 22px rgba(0,0,0,.4);
+  width:58px;height:58px;border-radius:14px;object-fit:cover;
+  border:1px solid var(--line);
+  box-shadow:0 10px 28px rgba(0,0,0,.45);
 }
-.logo-text{line-height:1}
-.logo-text span{display:block;background:linear-gradient(115deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
-.logo-text small{display:block;color:var(--muted);font-size:.67rem;font-weight:700;margin-top:3px}
+.logo-text strong{
+  display:block;
+  font-size:1.45rem;
+  font-weight:900;
+  line-height:1;
+  background:linear-gradient(115deg,var(--accent),var(--accent-2));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.logo-text small{display:block;font-size:.68rem;color:var(--muted);margin-top:2px}
 
-nav{display:flex;flex-wrap:wrap;gap:10px}
+nav{display:flex;gap:8px;flex-wrap:wrap}
 nav a{
-  color:var(--text);text-decoration:none;
-  padding:9px 14px;border-radius:999px;
+  color:var(--text);
+  text-decoration:none;
+  font-size:.92rem;
+  padding:8px 12px;
+  border-radius:999px;
   border:1px solid transparent;
-  font-size:.95rem;transition:.25s ease;
+  transition:.25s ease;
 }
-nav a:hover{border-color:var(--line);background:rgba(255,255,255,.06);transform:translateY(-1px)}
+nav a:hover{background:rgba(255,255,255,.06);border-color:var(--line);transform:translateY(-1px)}
 
-.hero{padding:72px 0 54px}
-.hero-wrap{
-  display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:stretch;
-}
+.hero{padding:54px 0 34px}
+.hero-wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:18px}
 
-.hero-card,.side-card{
+.card{
   background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
-  border:1px solid var(--line);border-radius:calc(var(--radius) + 2px);
-  box-shadow:var(--shadow);
-  overflow:hidden;
-}
-
-.hero-media{
-  min-height:360px;
-  background:
-    linear-gradient(0deg,rgba(0,0,0,.58),rgba(0,0,0,.2)),
-    url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1400&q=80') center/cover;
-  padding:26px;
-  display:flex;flex-direction:column;justify-content:flex-end;
-}
-.hero h1{font-size:clamp(1.8rem,3vw,3rem);line-height:1.35;font-weight:900;max-width:18ch}
-.hero p{margin-top:10px;color:#e7e9ee;max-width:50ch}
-
-.hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  padding:11px 18px;border-radius:12px;font-weight:800;text-decoration:none;transition:.2s;
-}
-.btn-primary{background:linear-gradient(115deg,var(--accent),var(--accent-2));color:#fff}
-.btn-primary:hover{transform:translateY(-2px)}
-.btn-ghost{border:1px solid var(--line);color:var(--text)}
-.btn-ghost:hover{background:rgba(255,255,255,.07)}
-
-.side-card{padding:22px}
-.kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.kpi{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
-.kpi strong{display:block;font-size:1.32rem;color:#fff}
-.kpi span{font-size:.88rem;color:var(--muted)}
-.side-note{margin-top:14px;color:var(--muted);font-size:.92rem}
-
-section{padding:42px 0}
-.section-title{font-size:clamp(1.35rem,2.2vw,2rem);font-weight:900;margin-bottom:18px}
-.section-title .accent{color:var(--accent)}
-
-.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.gallery img{
-  width:100%;height:250px;object-fit:cover;border-radius:14px;
-  border:1px solid var(--line);transition:.28s ease;
-}
-.gallery img:hover{transform:translateY(-4px) scale(1.01)}
-
-.info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.panel{
-  background:var(--surface);
   border:1px solid var(--line);
   border-radius:var(--radius);
-  padding:18px;
+  box-shadow:0 15px 45px rgba(0,0,0,.35);
 }
-.panel h3{font-size:1.05rem;margin-bottom:8px}
-.panel p{color:var(--muted);line-height:1.8}
 
-.pricing{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.price-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;position:relative}
-.price-card.popular{border-color:rgba(255,47,47,.5);box-shadow:0 10px 30px rgba(255,47,47,.15)}
-.badge{
-  position:absolute;top:12px;left:12px;
+.hero-main{overflow:hidden;position:relative}
+.hero-main::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(0deg,rgba(0,0,0,.72),rgba(0,0,0,.34)),
+    url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1600&q=90') center/cover;
+}
+.hero-content{position:relative;padding:38px 32px;min-height:435px;display:flex;flex-direction:column;justify-content:flex-end}
+.tag{
+  align-self:flex-start;
+  padding:6px 12px;
+  border-radius:999px;
+  font-size:.75rem;
+  font-weight:800;
+  letter-spacing:.3px;
+  background:rgba(255,45,45,.17);
+  border:1px solid rgba(255,45,45,.35);
+}
+.hero h1{margin-top:14px;font-size:clamp(1.8rem,3vw,3.3rem);line-height:1.3;font-weight:900;max-width:20ch}
+.hero p{margin-top:10px;color:#e9ecf2;max-width:52ch}
+
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.btn{
+  text-decoration:none;
+  border-radius:13px;
+  padding:11px 16px;
+  font-weight:800;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  transition:.2s ease;
+}
+.btn-primary{background:linear-gradient(110deg,var(--accent),var(--accent-2));color:#fff;box-shadow:var(--glow)}
+.btn-secondary{border:1px solid var(--line);color:var(--text);background:rgba(255,255,255,.04)}
+.btn:hover{transform:translateY(-2px)}
+
+.hero-side{padding:18px}
+.offer{
+  background:linear-gradient(120deg,rgba(255,45,45,.18),rgba(255,122,24,.12));
+  border:1px solid rgba(255,122,24,.35);
+  border-radius:14px;
+  padding:14px;
+}
+.offer h3{font-size:1rem}
+.offer p{color:var(--muted);font-size:.9rem;margin-top:4px}
+.stat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+.stat{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px;
+}
+.stat strong{display:block;font-size:1.25rem}
+.stat span{color:var(--muted);font-size:.85rem}
+
+section{padding:34px 0}
+.section-title{font-size:clamp(1.3rem,2.2vw,2rem);font-weight:900;margin-bottom:14px}
+.section-title span{color:var(--accent)}
+
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.gallery img{
+  width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:14px;
+  border:1px solid var(--line);
+  transition:.3s ease;
+}
+.gallery img:hover{transform:translateY(-5px) scale(1.01);box-shadow:var(--glow)}
+
+.why{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.box,.price-card,.schedule-card,.booking-side,form{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:16px;
+  transition:.25s ease;
+}
+.box:hover,.price-card:hover,.schedule-card:hover,.booking-side:hover,form:hover{
+  transform:translateY(-5px);
+  border-color:rgba(255,45,45,.45);
+  box-shadow:0 14px 34px rgba(0,0,0,.34);
+}
+.box h3{font-size:1.04rem}
+.box p{margin-top:8px;color:var(--muted);line-height:1.8}
+
+.pricing{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.price-card.popular{border-color:rgba(255,45,45,.5);box-shadow:var(--glow)}
+.chip{
+  display:inline-block;
+  padding:4px 9px;
+  font-size:.73rem;
+  border-radius:999px;
   background:linear-gradient(120deg,var(--accent),var(--accent-2));
-  color:#fff;font-size:.77rem;padding:5px 9px;border-radius:999px;font-weight:700
+  margin-bottom:8px;
 }
-.price-card h4{font-size:1.2rem;margin-bottom:8px}
-.price{font-size:2rem;font-weight:900;margin-bottom:10px}
-.price small{font-size:.9rem;color:var(--muted);font-weight:600}
-.price-card ul{list-style:none;display:grid;gap:7px}
-.price-card li{color:var(--muted)}
+.price-card h4{font-size:1.18rem}
+.price{font-size:1.95rem;font-weight:900;margin:6px 0}
+.price small{font-size:.9rem;color:var(--muted)}
+.price-card ul{list-style:none;display:grid;gap:5px;color:var(--muted)}
 
-.schedule{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.schedule-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
-.schedule-card h3{margin-bottom:10px;color:#fff}
+.schedule{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.schedule-card h3{margin-bottom:8px}
 .schedule-card ul{list-style:none;display:grid;gap:6px}
-.schedule-card li{color:var(--muted);line-height:1.7}
+.schedule-card li{color:var(--muted)}
 
-.booking-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:14px}
-.booking-side{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.booking{padding-bottom:22px}
+.booking-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:12px}
 .booking-side p{color:var(--muted);line-height:1.9}
 
-form{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:18px;
-}
+form{padding:16px}
 .input-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 input,select,button{
   width:100%;
-  border-radius:12px;
-  border:1px solid var(--line);
   background:var(--surface-2);
+  border:1px solid var(--line);
+  border-radius:12px;
   color:#fff;
   font-family:inherit;
-  padding:12px 13px;
+  padding:11px 12px;
 }
-input::placeholder{color:#8f96a3}
-input:focus,select:focus{outline:none;border-color:rgba(255,47,47,.55)}
+input::placeholder{color:#8f98a9}
+input:focus,select:focus{outline:none;border-color:rgba(255,45,45,.6)}
 button{
-  margin-top:10px;
   border:none;
-  background:linear-gradient(115deg,var(--accent),var(--accent-2));
+  margin-top:10px;
   font-weight:900;
   cursor:pointer;
+  background:linear-gradient(110deg,var(--accent),var(--accent-2));
+  box-shadow:var(--glow);
 }
 button:hover{filter:brightness(1.08)}
-.hover-glow{
-  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease,background-color .25s ease;
-}
-.hover-glow:hover{
-  transform:translateY(-4px);
-  border-color:rgba(255,47,47,.45);
-  box-shadow:0 10px 28px rgba(0,0,0,.38);
-}
-.field-note{color:var(--muted);font-size:.86rem;margin-top:6px}
+.field-note{font-size:.84rem;color:var(--muted);margin-top:6px}
 
 footer{
-  margin-top:26px;padding:18px 0 28px;
   border-top:1px solid var(--line);
-  text-align:center;color:var(--muted)
+  padding:18px 0 28px;
+  text-align:center;
+  color:var(--muted);
 }
 
-.whatsapp{
+.float-whatsapp,
+.float-top{
   position:fixed;
-  bottom:18px;left:18px;
-  width:54px;height:54px;border-radius:50%;
-  display:grid;place-items:center;
-  background:var(--ok);color:#fff;text-decoration:none;font-size:1.6rem;
-  box-shadow:0 12px 28px rgba(37,211,102,.35);z-index:50;
+  left:16px;
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  text-decoration:none;
+  color:#fff;
+  z-index:80;
+  box-shadow:0 12px 28px rgba(0,0,0,.35);
 }
+.float-whatsapp{bottom:16px;background:#25D366;font-size:1.55rem}
+.float-top{bottom:78px;background:linear-gradient(110deg,var(--accent),var(--accent-2));font-size:1.2rem;opacity:0;pointer-events:none;transition:.2s ease}
+.float-top.show{opacity:1;pointer-events:auto}
 
-.reveal{opacity:0;transform:translateY(18px);animation:fadeIn .7s ease forwards}
-.reveal.delay-1{animation-delay:.1s}
-.reveal.delay-2{animation-delay:.2s}
-.reveal.delay-3{animation-delay:.3s}
+.reveal{opacity:0;transform:translateY(20px);transition:.45s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
 
-@keyframes fadeIn{
-  to{opacity:1;transform:translateY(0)}
+@media (max-width:980px){
+  .hero-wrap,.booking-grid{grid-template-columns:1fr}
+  .pricing,.why,.schedule{grid-template-columns:1fr 1fr}
 }
-
-@media (max-width:960px){
-  .hero-wrap,.booking-wrap{grid-template-columns:1fr}
-  .gallery{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .pricing,.info-grid,.schedule{grid-template-columns:1fr 1fr}
-}
-
-@media (max-width:640px){
+@media (max-width:680px){
   .topbar{flex-direction:column;align-items:flex-start}
-  .logo img{width:44px;height:44px}
-  .logo-text{font-size:1.1rem}
-  nav a{font-size:.87rem;padding:8px 11px}
-  .gallery,.pricing,.info-grid,.schedule,.input-grid{grid-template-columns:1fr}
-  .hero{padding-top:42px}
-  .hero-media{min-height:300px}
-  .whatsapp{bottom:14px;left:14px}
+  .logo img{width:48px;height:48px}
+  nav a{font-size:.85rem;padding:8px 11px}
+  .hero-content{min-height:355px;padding:26px 20px}
+  .gallery,.pricing,.why,.schedule,.input-grid{grid-template-columns:1fr}
+  .float-whatsapp{left:12px;bottom:12px}
+  .float-top{left:12px;bottom:72px}
 }
 </style>
 </head>
 <body>
-  <header>
-    <div class="container topbar">
-      <div class="logo">
-        <img src="logo-progym.jpg" alt="PRO GYM Logo" loading="eager" onerror="this.style.display='none'">
-        <div class="logo-text">
-          <span>PRO GYM</span>
-          <small>BE PROFESSIONAL</small>
-        </div>
-      </div>
-      <nav>
-        <a href="#home">الرئيسية</a>
-        <a href="#gallery">صور الجيم</a>
-        <a href="#prices">الاشتراكات</a>
-        <a href="#schedule">المواعيد</a>
-        <a href="#booking">الحجز</a>
-      </nav>
-    </div>
-  </header>
+<div class="progress-bar" id="progressBar"></div>
 
-  <main id="home" class="hero">
-    <div class="container hero-wrap reveal">
-      <article class="hero-card">
-        <div class="hero-media">
-          <h1>ابدأ رحلتك الرياضية في أقوى نسخة منك</h1>
-          <p>بيئة تدريب نظيفة، أجهزة حديثة، ومدربين يساعدوك توصل لنتيجة واضحة بسرعة وبخطة مناسبة ليك.</p>
-          <div class="hero-cta">
-            <a class="btn btn-primary" href="#booking">احجز اشتراكك الآن</a>
-            <a class="btn btn-ghost" href="https://wa.me/201205150400" target="_blank" rel="noopener">تواصل واتساب</a>
-          </div>
-        </div>
-      </article>
-
-      <aside class="side-card reveal delay-1 hover-glow">
-        <div class="kpis">
-          <div class="kpi hover-glow">
-            <strong>+1200</strong>
-            <span>عضو نشط</span>
-          </div>
-          <div class="kpi hover-glow">
-            <strong>7 أيام</strong>
-            <span>مواعيد طوال الأسبوع</span>
-          </div>
-          <div class="kpi hover-glow">
-            <strong>100%</strong>
-            <span>دعم مباشر للحجز</span>
-          </div>
-          <div class="kpi hover-glow">
-            <strong>3 خطط</strong>
-            <span>اشتراكات مرنة</span>
-          </div>
-        </div>
-        <p class="side-note">العنوان: أبو حمص - أول شارع السخاوي | الهاتف: 01205150400</p>
-      </aside>
-    </div>
-  </main>
-
-  <section id="gallery" class="container reveal delay-1">
-    <h2 class="section-title">صور <span class="accent">الجيم</span></h2>
-    <div class="gallery">
-      <img src="https://images.unsplash.com/photo-1558611848-73f7eb4001a1?auto=format&fit=crop&w=900&q=80" alt="صورة من الجيم">
-      <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=900&q=80" alt="صورة معدات الجيم">
-      <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=80" alt="منطقة تدريب">
-    </div>
-  </section>
-
-  <section class="container reveal delay-2">
-    <h2 class="section-title">ليه <span class="accent">PRO GYM</span>؟</h2>
-    <div class="info-grid">
-      <div class="panel hover-glow">
-        <h3>تدريب عملي</h3>
-        <p>متابعة يومية على التمرين مع خطة تدريجية حسب مستواك الحقيقي.</p>
-      </div>
-      <div class="panel hover-glow">
-        <h3>تنظيم في الوقت</h3>
-        <p>مواعيد منفصلة للرجال والسيدات بشكل واضح ومريح طوال الأسبوع.</p>
-      </div>
-      <div class="panel hover-glow">
-        <h3>سهولة الحجز</h3>
-        <p>املأ الفورم وسيتم إرسال تفاصيل الاشتراك مباشرة على واتساب الجيم.</p>
+<header>
+  <div class="container topbar">
+    <div class="logo">
+      <img src="logo-progym.jpg" alt="PRO GYM Logo" loading="eager" onerror="this.style.display='none'">
+      <div class="logo-text">
+        <strong>PRO GYM</strong>
+        <small>BE PROFESSIONAL</small>
       </div>
     </div>
-  </section>
+    <nav>
+      <a href="#home">الرئيسية</a>
+      <a href="#gallery">صور الجيم</a>
+      <a href="#prices">الاشتراكات</a>
+      <a href="#schedule">المواعيد</a>
+      <a href="#booking">الحجز</a>
+    </nav>
+  </div>
+</header>
 
-  <section id="prices" class="container reveal delay-2">
-    <h2 class="section-title">الأسعار <span class="accent">والاشتراكات</span></h2>
-    <div class="pricing">
-      <article class="price-card hover-glow">
-        <h4>اشتراك شهر</h4>
-        <div class="price">500 <small>للرجال</small></div>
-        <div class="price">450 <small>للسيدات</small></div>
-        <ul>
-          <li>دخول كامل حسب المواعيد</li>
-          <li>متابعة أساسية</li>
-        </ul>
-      </article>
-      <article class="price-card popular hover-glow">
-        <span class="badge">الأكثر طلبًا</span>
-        <h4>اشتراك 3 شهور</h4>
-        <div class="price">1300 <small>للرجال</small></div>
-        <div class="price">1100 <small>للسيدات</small></div>
-        <ul>
-          <li>أفضل قيمة مقابل السعر</li>
-          <li>استمرارية أعلى في النتيجة</li>
-        </ul>
-      </article>
-      <article class="price-card hover-glow">
-        <h4>اشتراك 6 شهور</h4>
-        <div class="price">2400 <small>للرجال</small></div>
-        <div class="price">2000 <small>للسيدات</small></div>
-        <ul>
-          <li>توفير أكبر</li>
-          <li>ثبات على الخطة لفترة طويلة</li>
-        </ul>
-      </article>
-    </div>
-  </section>
-
-  <section id="schedule" class="container reveal delay-3">
-    <h2 class="section-title">مواعيد <span class="accent">العمل</span></h2>
-    <div class="schedule">
-      <article class="schedule-card hover-glow">
-        <h3>مواعيد الرجال</h3>
-        <ul>
-          <li>السبت: 2 م - 2 ص</li>
-          <li>الأحد: 8:30 ص - 3 م / 7:15 م - 2 ص</li>
-          <li>الاثنين: 2 م - 2 ص</li>
-          <li>الثلاثاء: 8:30 ص - 3 م / 7:15 م - 2 ص</li>
-          <li>الأربعاء: 2 م - 2 ص</li>
-          <li>الخميس: 8:30 ص - 2 م / 7:15 م - 2 ص</li>
-          <li>الجمعة: 8 م - 12 ص</li>
-        </ul>
-      </article>
-      <article class="schedule-card hover-glow">
-        <h3>مواعيد السيدات</h3>
-        <ul>
-          <li>السبت: 10 ص - 2 م</li>
-          <li>الأحد: 2 م - 7:15 م</li>
-          <li>الاثنين: 10 ص - 2 م</li>
-          <li>الثلاثاء: 2 م - 7:15 م</li>
-          <li>الأربعاء: 10 ص - 2 م</li>
-          <li>الخميس: 2 م - 7:15 م</li>
-          <li>الجمعة: 2 م - 8 م</li>
-        </ul>
-      </article>
-    </div>
-  </section>
-
-  <section id="booking" class="container reveal delay-3">
-    <h2 class="section-title">احجز <span class="accent">اشتراكك</span></h2>
-    <div class="booking-wrap">
-      <aside class="booking-side hover-glow">
-        <h3 style="margin-bottom:10px">بيانات التواصل</h3>
-        <p>
-          أبو حمص - أول شارع السخاوي<br>
-          رقم الهاتف: 01205150400<br>
-          بعد ما تبعت الحجز، فريق الجيم هيكلمك لتأكيد الاشتراك وطريقة الدفع.
-        </p>
-      </aside>
-
-      <form id="bookingForm" class="hover-glow">
-        <div class="input-grid">
-          <input type="text" id="name" placeholder="الاسم" required>
-          <input type="tel" id="phone" placeholder="رقم الهاتف" inputmode="tel" required>
-          <select id="gender" required>
-            <option value="رجال">رجال</option>
-            <option value="سيدات">سيدات</option>
-          </select>
-          <input type="date" id="bookingDate" required>
-          <select id="bookingSlot" required></select>
-          <select id="plan" required>
-            <option value="شهر">اشتراك شهر</option>
-            <option value="3 شهور">عرض 3 شهور</option>
-            <option value="6 شهور">عرض 6 شهور</option>
-          </select>
-          <select id="payment" required>
-            <option value="فودافون كاش">فودافون كاش</option>
-            <option value="انستاباي">انستاباي</option>
-            <option value="دفع في الجيم">كاش في الجيم</option>
-          </select>
-          <input type="text" id="time" placeholder="أفضل وقت للتواصل (اختياري)">
+<main class="hero" id="home">
+  <div class="container hero-wrap">
+    <article class="card hero-main reveal">
+      <div class="hero-content">
+        <span class="tag">ELITE FITNESS EXPERIENCE</span>
+        <h1>نسخة PRO: تدريب احترافي وشكل صفحة يخطف العين من أول ثانية</h1>
+        <p>دلوقتي صفحة الحجز بقت واجهة أساسية تليق باسم الجيم: أقوى عرض بصري + حجز سريع + تجربة موبايل ممتازة.</p>
+        <div class="hero-cta">
+          <a href="#booking" class="btn btn-primary">ابدأ الحجز الآن</a>
+          <a href="https://wa.me/201205150400" target="_blank" rel="noopener" class="btn btn-secondary">تواصل واتساب</a>
         </div>
-        <p class="field-note">اختيار موعد الحضور بيتغير تلقائيًا حسب النوع (رجال/سيدات).</p>
-        <button type="submit">تأكيد الحجز على واتساب</button>
-      </form>
-    </div>
-  </section>
+      </div>
+    </article>
 
-  <footer>
-    PRO GYM © 2026 | Official Booking Page
-  </footer>
+    <aside class="card hero-side reveal">
+      <div class="offer">
+        <h3>عرض حماسي للأعضاء الجدد</h3>
+        <p>احجز دلوقتي واختار أنسب نظام ليك من أول زيارة.</p>
+      </div>
+      <div class="stat-grid">
+        <div class="stat"><strong>+1200</strong><span>عضو نشط</span></div>
+        <div class="stat"><strong>7/7</strong><span>مواعيد أسبوعية</span></div>
+        <div class="stat"><strong>10+</strong><span>فترات تدريب</span></div>
+        <div class="stat"><strong>100%</strong><span>متابعة حجز</span></div>
+      </div>
+    </aside>
+  </div>
+</main>
 
-  <a class="whatsapp" href="https://wa.me/201205150400" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+<section class="container reveal" id="gallery">
+  <h2 class="section-title">صور <span>الجيم</span></h2>  <div class="gallery" id="galleryGrid"></div>
+</section>
+
+<section class="container reveal">
+  <h2 class="section-title">ليه <span>PRO GYM</span>؟</h2>
+  <div class="why">
+    <article class="box">
+      <h3>قوة وتجهيز</h3>
+      <p>أجهزة حديثة وتنظيم واضح لكل منطقة تدريب.</p>
+    </article>
+    <article class="box">
+      <h3>نظام مرن</h3>
+      <p>مواعيد رجالي وسيدات متقسمة صح علشان راحتك.</p>
+    </article>
+    <article class="box">
+      <h3>حجز ذكي</h3>
+      <p>الفورم بيختار مواعيد مناسبة تلقائيًا حسب النوع.</p>
+    </article>
+  </div>
+</section>
+
+<section class="container reveal" id="prices">
+  <h2 class="section-title">الأسعار <span>والاشتراكات</span></h2>
+  <div class="pricing">
+    <article class="price-card">
+      <h4>اشتراك شهر</h4>
+      <div class="price">500 <small>للرجال</small></div>
+      <div class="price">450 <small>للسيدات</small></div>
+      <ul>
+        <li>دخول كامل حسب المواعيد</li>
+        <li>متابعة أساسية</li>
+      </ul>
+    </article>
+    <article class="price-card popular">
+      <span class="chip">الأكثر طلبًا</span>
+      <h4>اشتراك 3 شهور</h4>
+      <div class="price">1300 <small>للرجال</small></div>
+      <div class="price">1100 <small>للسيدات</small></div>
+      <ul>
+        <li>قيمة أعلى مقابل السعر</li>
+        <li>استمرارية أفضل في النتائج</li>
+      </ul>
+    </article>
+    <article class="price-card">
+      <h4>اشتراك 6 شهور</h4>
+      <div class="price">2400 <small>للرجال</small></div>
+      <div class="price">2000 <small>للسيدات</small></div>
+      <ul>
+        <li>أوفر خطة طويلة</li>
+        <li>ثبات قوي على البرنامج</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<section class="container reveal" id="schedule">
+  <h2 class="section-title">مواعيد <span>العمل</span></h2>
+  <div class="schedule">
+    <article class="schedule-card">
+      <h3>مواعيد الرجال</h3>
+      <ul>
+        <li>السبت: 2 م - 2 ص</li>
+        <li>الأحد: 8:30 ص - 3 م / 7:15 م - 2 ص</li>
+        <li>الاثنين: 2 م - 2 ص</li>
+        <li>الثلاثاء: 8:30 ص - 3 م / 7:15 م - 2 ص</li>
+        <li>الأربعاء: 2 م - 2 ص</li>
+        <li>الخميس: 8:30 ص - 2 م / 7:15 م - 2 ص</li>
+        <li>الجمعة: 8 م - 12 ص</li>
+      </ul>
+    </article>
+    <article class="schedule-card">
+      <h3>مواعيد السيدات</h3>
+      <ul>
+        <li>السبت: 10 ص - 2 م</li>
+        <li>الأحد: 2 م - 7:15 م</li>
+        <li>الاثنين: 10 ص - 2 م</li>
+        <li>الثلاثاء: 2 م - 7:15 م</li>
+        <li>الأربعاء: 10 ص - 2 م</li>
+        <li>الخميس: 2 م - 7:15 م</li>
+        <li>الجمعة: 2 م - 8 م</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<section class="container booking reveal" id="booking">
+  <h2 class="section-title">احجز <span>اشتراكك</span></h2>
+  <div class="booking-grid">
+    <aside class="booking-side">
+      <h3 style="margin-bottom:8px">بيانات التواصل</h3>
+      <p>
+        أبو حمص - أول شارع السخاوي<br>
+        رقم الهاتف: 01205150400<br>
+        بعد الحجز، فريق الجيم هيتواصل معاك لتأكيد كل التفاصيل.
+      </p>
+    </aside>
+
+    <form id="bookingForm">
+      <div class="input-grid">
+        <input type="text" id="name" placeholder="الاسم" required>
+        <input type="tel" id="phone" placeholder="رقم الهاتف" inputmode="tel" required>
+        <select id="gender" required>
+          <option value="رجال">رجال</option>
+          <option value="سيدات">سيدات</option>
+        </select>
+        <input type="date" id="bookingDate" required>
+        <select id="bookingSlot" required></select>
+        <select id="plan" required>
+          <option value="شهر">اشتراك شهر</option>
+          <option value="3 شهور">عرض 3 شهور</option>
+          <option value="6 شهور">عرض 6 شهور</option>
+        </select>
+        <select id="payment" required>
+          <option value="فودافون كاش">فودافون كاش</option>
+          <option value="انستاباي">انستاباي</option>
+          <option value="دفع في الجيم">كاش في الجيم</option>
+        </select>
+        <input type="text" id="time" placeholder="أفضل وقت للتواصل (اختياري)">
+      </div>
+      <p class="field-note">موعد الحضور بيتغير تلقائيًا حسب اختيارك (رجال/سيدات).</p>
+      <button type="submit">تأكيد الحجز على واتساب</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  PRO GYM © 2026 | Elite Booking Experience
+</footer>
+
+<a class="float-whatsapp" href="https://wa.me/201205150400" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+<a class="float-top" id="toTop" href="#home" aria-label="Back to top">↑</a>
 
 <script>
 const phoneTarget = '201205150400';
+const galleryOrder = [35,36,48,1,2,10,11,12,14,15,16,17,18,4,5,6,7,9,13,20,3,8,19,21,22,23,24,38,39,25,26,27,28,29,30,31,32,33,34,37,40,41,42,43,44,45,46,47];
 const genderSlots = {
   'رجال': [
     'السبت | 2 م - 2 ص',
@@ -452,6 +509,23 @@ const genderSlots = {
 const genderEl = document.getElementById('gender');
 const slotEl = document.getElementById('bookingSlot');
 const dateEl = document.getElementById('bookingDate');
+const galleryGrid = document.getElementById('galleryGrid');
+const progressBar = document.getElementById('progressBar');
+const toTop = document.getElementById('toTop');
+
+function renderGallery(){
+  galleryGrid.innerHTML = '';
+
+  galleryOrder.forEach(function(num){
+    const n = String(num).padStart(2, '0');
+    const img = document.createElement('img');
+    img.src = 'gallery/' + n + '.jpg';
+    img.alt = 'PRO GYM ' + n;
+    img.loading = 'lazy';
+    img.onerror = function(){ this.remove(); };
+    galleryGrid.appendChild(img);
+  });
+}
 
 function populateSlots(gender){
   const slots = genderSlots[gender] || [];
@@ -487,11 +561,41 @@ function buildMessage(data){
   ].join('\n');
 }
 
+function updateScrollFx(){
+  const scrolled = window.scrollY;
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = max > 0 ? (scrolled / max) * 100 : 0;
+  progressBar.style.width = progress + '%';
+
+  if (scrolled > 420){
+    toTop.classList.add('show');
+  } else {
+    toTop.classList.remove('show');
+  }
+}
+
+const observer = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if (entry.isIntersecting){
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:0.2});
+
+document.querySelectorAll('.reveal').forEach(function(el){
+  observer.observe(el);
+});
+
+renderGallery();
 dateEl.min = new Date().toISOString().split('T')[0];
 populateSlots(genderEl.value);
 genderEl.addEventListener('change', function(){
   populateSlots(this.value);
 });
+
+window.addEventListener('scroll', updateScrollFx);
+updateScrollFx();
 
 document.getElementById('bookingForm').addEventListener('submit', function(event){
   event.preventDefault();
@@ -513,9 +617,12 @@ document.getElementById('bookingForm').addEventListener('submit', function(event
   }
 
   const message = encodeURIComponent(buildMessage(data));
-  const url = 'https://wa.me/' + phoneTarget + '?text=' + message;
-  window.open(url, '_blank');
+  window.open('https://wa.me/' + phoneTarget + '?text=' + message, '_blank');
 });
 </script>
 </body>
 </html>
+
+
+
+
