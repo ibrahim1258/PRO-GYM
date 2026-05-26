@@ -976,7 +976,7 @@ footer{
           <h4>حوّل الاشتراك أولًا</h4>
           <span class="payment-number">0120 3665155</span>
         </div>
-        <p>حوّل قيمة الاشتراك على الرقم ده، وبعد التحويل ارفع لقطة شاشة الإيصال. بعد الإرسال سوف يتم التأكد من التحويل والتواصل معك على واتساب لتأكيد الاشتراك.</p>
+        <p>حوّل قيمة الاشتراك على الرقم ده، وبعد التحويل ارفع لقطة شاشة الإيصال هنا. عند تأكيد الحجز هتفتح رسالة واتساب مباشرة على رقم الجيم، وبعدها ابعت لقطة الشاشة في نفس المحادثة للمراجعة.</p>
         <div class="upload-box">
           <label for="receipt">لقطة شاشة التحويل</label>
           <input type="file" id="receipt" accept="image/*">
@@ -987,7 +987,7 @@ footer{
         </div>
       </div>
       <p class="field-note">موعد الحضور بيتغير تلقائيًا حسب اختيارك (رجال/سيدات). الجمعة إجازة.</p>
-      <p class="booking-status" id="bookingStatus">سوف يتم التأكد من التحويل والتواصل معك على واتساب لتأكيد الاشتراك.</p>
+      <p class="booking-status" id="bookingStatus">سوف يتم التأكد من التحويل والتواصل معك على واتساب لتأكيد الاشتراك. ابعت لقطة الشاشة في نفس المحادثة بعد فتح واتساب.</p>
       <button type="submit" class="booking-submit">تأكيد الحجز على واتساب</button>
     </form>
   </div>
@@ -1202,7 +1202,8 @@ function buildMessage(data){
 
   if (isElectronicPayment(data.payment)){
     lines.push('رقم التحويل: 0120 3665155');
-    lines.push('لقطة شاشة التحويل: ' + (data.receiptName || 'مرفقة مع الرسالة'));
+    lines.push('لقطة شاشة التحويل: تم اختيار ملف ' + (data.receiptName || 'بدون اسم'));
+    lines.push('مطلوب إرسال لقطة الشاشة في نفس محادثة واتساب للمراجعة.');
     lines.push('الحالة: في انتظار مراجعة التحويل والتأكيد من الإدارة.');
   }
 
@@ -1211,16 +1212,6 @@ function buildMessage(data){
 
 async function sendBooking(data, receiptFile){
   const messageText = buildMessage(data);
-
-  if (receiptFile && navigator.canShare && navigator.canShare({ files: [receiptFile] }) && navigator.share){
-    await navigator.share({
-      title: 'حجز PRO GYM',
-      text: messageText,
-      files: [receiptFile]
-    });
-    return;
-  }
-
   const message = encodeURIComponent(messageText);
   window.open('https://wa.me/' + phoneTarget + '?text=' + message, '_blank');
 }
@@ -1458,7 +1449,6 @@ document.getElementById('bookingForm').addEventListener('submit', async function
   } catch (error){
     const message = encodeURIComponent(buildMessage(data));
     window.open('https://wa.me/' + phoneTarget + '?text=' + message, '_blank');
-    alert('لو لقطة الشاشة ما اتبعتتش تلقائيًا، من فضلك ابعتها في نفس محادثة واتساب بعد فتح الرسالة.');
   }
 });
 </script>
